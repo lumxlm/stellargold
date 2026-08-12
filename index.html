@@ -1,1 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stellar Gold — Tokenized Commodities on Stellar</title>
+<meta name="description" content="Real-world commodities — gold, silver, oil, platinum — tokenized and tradeable on the Stellar blockchain. Instant settlement, near-zero fees." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+/* ── DESIGN TOKENS ── */
+:root {
+  --ink:       #0a0906;
+  --ink2:      #120f0a;
+  --ink3:      #1a1610;
+  --ink4:      #221d15;
+  --gold:      #c9a84c;
+  --gold-lt:   #e2c97e;
+  --gold-dim:  rgba(201,168,76,0.12);
+  --gold-mid:  rgba(201,168,76,0.22);
+  --gold-glow: rgba(201,168,76,0.06);
+  --silver:    #a8aeb8;
+  --red:       #c0392b;
+  --green:     #27ae60;
+  --cream:     #f0e9d6;
+  --muted:     #6b6050;
+  --muted2:    #4a4035;
+  --border:    rgba(201,168,76,0.14);
+  --border-h:  rgba(201,168,76,0.30);
+  --radius:    8px;
+  --font-disp: 'Playfair Display', Georgia, serif;
+  --font-sans: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── GRAIN TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px;
+  opacity: 0.55;
+}
+
+/* ── AMBIENT RADIAL ── */
+.amb {
+  position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+  filter: blur(140px);
+}
+.amb-1 { width: 800px; height: 500px; background: rgba(201,168,76,0.055); top: -150px; left: 50%; transform: translateX(-50%); }
+.amb-2 { width: 400px; height: 400px; background: rgba(201,168,76,0.03); bottom: 10%; right: -100px; }
+
+/* ── TICKER TAPE (signature element) ── */
+.ticker-wrap {
+  position: relative; z-index: 10;
+  background: var(--ink2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden; padding: 0;
+  height: 36px;
+}
+.ticker-wrap::before, .ticker-wrap::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+}
+.ticker-wrap::before { left: 0; background: linear-gradient(90deg, var(--ink2), transparent); }
+.ticker-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--ink2), transparent); }
+
+.ticker-inner {
+  display: flex; align-items: center;
+  height: 36px;
+  animation: tickerScroll 28s linear infinite;
+  width: max-content;
+}
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 20px;
+  font-family: var(--font-mono); font-size: 0.68rem;
+  letter-spacing: 0.08em; white-space: nowrap;
+  border-right: 1px solid var(--border);
+}
+.ticker-item .sym { color: var(--gold); font-weight: 500; }
+.ticker-item .lbl { color: var(--muted); }
+.ticker-item .new { color: var(--gold-lt); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--border); padding: 1px 5px; border-radius: 3px; }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,9,6,0.88);
+  backdrop-filter: blur(16px) saturate(1.2);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex; align-items: center;
+}
+.nav-inner {
+  width: 100%; max-width: 1200px; margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+}
+.nav-sigil {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border-h);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold);
+  background: var(--gold-dim);
+  letter-spacing: -0.03em;
+}
+.nav-name {
+  font-family: var(--font-disp); font-size: 1.1rem; font-weight: 600;
+  color: var(--cream); letter-spacing: 0.01em;
+}
+.nav-name span { color: var(--gold); }
+.nav-pill {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid var(--border); background: var(--gold-dim);
+  padding: 3px 10px; border-radius: 2px;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 1;
+  padding: clamp(5rem, 12vh, 9rem) clamp(1.5rem, 6vw, 3rem) clamp(4rem, 8vh, 7rem);
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; gap: 3rem; } }
+
+.hero-eyebrow {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 1.4rem;
+}
+.hero-eyebrow::before { content: '◆'; font-size: 0.5rem; }
+
+.hero h1 {
+  font-family: var(--font-disp);
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  font-weight: 700; line-height: 1.05; letter-spacing: -0.01em;
+  margin-bottom: 1.4rem;
+}
+.hero h1 em {
+  font-style: italic; color: var(--gold);
+  display: block;
+}
+
+.hero-sub {
+  font-family: var(--font-sans); font-size: 1rem; font-weight: 300;
+  color: var(--silver); line-height: 1.7; max-width: 440px;
+  margin-bottom: 2rem;
+}
+
+/* BUTTONS */
+.btn-gold {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--gold); color: var(--ink);
+  font-family: var(--font-mono); font-weight: 500; font-size: 0.75rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 12px 24px; border-radius: var(--radius); text-decoration: none;
+  border: none; cursor: pointer;
+  transition: filter 0.2s, transform 0.15s, box-shadow 0.25s;
+  position: relative; overflow: hidden;
+}
+.btn-gold::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 55%);
+  pointer-events: none;
+}
+.btn-gold:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(201,168,76,0.35);
+}
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: transparent; color: var(--cream);
+  font-family: var(--font-mono); font-weight: 400; font-size: 0.75rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 11px 24px; border-radius: var(--radius); text-decoration: none;
+  border: 1px solid var(--border-h); cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover { background: var(--gold-dim); border-color: var(--gold); }
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* HERO CARD — commodity terminal */
+.terminal-card {
+  background: var(--ink2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.08);
+  animation: floatCard 6s ease-in-out infinite;
+}
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+.terminal-header {
+  background: var(--ink3);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.terminal-title {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+}
+.terminal-live {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
+}
+.terminal-live::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold);
+  animation: blink 1.8s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+.terminal-body { padding: 16px; display: flex; flex-direction: column; gap: 2px; }
+
+.commodity-row {
+  display: grid;
+  grid-template-columns: 3rem 1fr 5rem 4rem;
+  align-items: center; gap: 8px;
+  padding: 9px 10px; border-radius: 5px;
+  transition: background 0.15s;
+  cursor: default;
+}
+.commodity-row:hover { background: var(--gold-glow); }
+
+.cr-icon {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--gold); font-weight: 500; letter-spacing: 0.04em;
+  background: var(--gold-dim); border: 1px solid var(--border);
+  border-radius: 3px; padding: 2px 4px; text-align: center;
+}
+.cr-name { font-family: var(--font-sans); font-size: 0.8rem; color: var(--silver); font-weight: 300; }
+.cr-change {
+  font-family: var(--font-mono); font-size: 0.72rem; text-align: right;
+  font-weight: 500;
+}
+.cr-change.up   { color: var(--green); }
+.cr-change.down { color: var(--red); }
+.cr-tl {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  color: var(--muted); text-align: right; letter-spacing: 0.04em;
+}
+.cr-tl .be-first { color: #c9a84c88; font-style: italic; }
+
+.terminal-footer {
+  border-top: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.tf-issuer {
+  font-family: var(--font-mono); font-size: 0.58rem;
+  color: var(--muted2); letter-spacing: 0.05em;
+}
+.tf-issuer span { color: var(--gold); }
+
+/* ── SECTION CHROME ── */
+.section { position: relative; z-index: 1; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.5rem, 6vw, 3rem); }
+
+.section-eyebrow {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;
+}
+.section-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
+.section-title {
+  font-family: var(--font-disp); font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600; letter-spacing: -0.01em; line-height: 1.12;
+  margin-bottom: 0.5rem;
+}
+.section-desc {
+  font-family: var(--font-sans); font-size: 0.92rem; font-weight: 300;
+  color: var(--silver); max-width: 520px; line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+/* ── TRUSTLINE ALERT ── */
+.tl-alert {
+  position: relative; z-index: 1;
+  margin: 0 auto 0;
+  max-width: 1200px;
+  padding: 0 clamp(1.5rem, 6vw, 3rem);
+}
+.tl-alert-inner {
+  background: rgba(201,168,76,0.05);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.5rem;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.tl-alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; color: var(--gold); }
+.tl-alert-text { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); line-height: 1.65; }
+.tl-alert-text strong { color: var(--gold-lt); }
+
+/* ── TOKEN GRID ── */
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.token-card {
+  background: var(--ink2);
+  padding: 1.4rem 1.5rem;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: background 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.token-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at var(--gx,50%) var(--gy,50%),
+    rgba(201,168,76,0.07) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
+.token-card:hover::before { opacity: 1; }
+.token-card:hover { background: var(--ink3); }
+
+.tc-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+.tc-ticker {
+  font-family: var(--font-mono); font-size: 1.1rem; font-weight: 500;
+  color: var(--gold); letter-spacing: 0.06em;
+}
+
+.tc-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.badge-chain {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  border: 1px solid var(--border); padding: 2px 7px; border-radius: 2px;
+}
+.badge-new {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3); background: var(--gold-dim);
+  padding: 2px 7px; border-radius: 2px;
+}
+
+.tc-name {
+  font-family: var(--font-sans); font-size: 0.82rem; font-weight: 300;
+  color: var(--silver);
+}
+
+.tc-desc {
+  font-family: var(--font-sans); font-size: 0.75rem; font-weight: 300;
+  color: var(--muted); line-height: 1.55;
+}
+
+.tc-tl {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: #c9a84c66;
+}
+.tc-tl svg { flex-shrink: 0; }
+
+.tc-actions {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 2px;
+}
+
+.btn-trust {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold-dim); color: var(--gold);
+  border: 1px solid var(--border-h);
+  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 6px 13px; border-radius: 4px; text-decoration: none;
+  transition: background 0.18s, border-color 0.18s, transform 0.12s;
+}
+.btn-trust:hover {
+  background: var(--gold-mid); border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.btn-expert {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--muted); text-decoration: none;
+  padding: 6px 10px; border-radius: 4px;
+  border: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.btn-expert:hover { color: var(--cream); border-color: var(--border); }
+
+/* ── ISSUER BLOCK ── */
+.issuer-block {
+  margin-top: 1.5rem;
+  background: var(--ink2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.4rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.issuer-k {
+  font-family: var(--font-mono); font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); flex-shrink: 0;
+}
+.issuer-v {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold); word-break: break-all;
+}
+
+/* ── HOWTO ── */
+.howto-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+}
+@media (max-width: 768px) { .howto-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .howto-grid { grid-template-columns: 1fr; } }
+
+.howto-step {
+  background: var(--ink2); padding: 1.5rem;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 10px;
+  transition: background 0.18s;
+}
+.howto-step:last-child { border-right: none; }
+.howto-step:hover { background: var(--ink3); }
+
+.howto-n {
+  font-family: var(--font-mono); font-size: 2rem; font-weight: 300;
+  color: var(--border-h); line-height: 1; letter-spacing: -0.04em;
+}
+.howto-step h3 {
+  font-family: var(--font-disp); font-size: 1rem; font-weight: 600;
+  color: var(--cream);
+}
+.howto-step p {
+  font-family: var(--font-sans); font-size: 0.8rem; font-weight: 300;
+  color: var(--silver); line-height: 1.6;
+}
+
+/* ── STELLAR FEATURES ── */
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden;
+}
+@media (max-width: 680px) { .features-grid { grid-template-columns: 1fr; } }
+
+.feature-card {
+  background: var(--ink2); padding: 2rem 1.6rem;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: background 0.18s;
+}
+.feature-card:hover { background: var(--ink3); }
+.feature-icon {
+  font-family: var(--font-disp); font-size: 1.8rem; font-weight: 400;
+  color: var(--gold); font-style: italic; line-height: 1;
+}
+.feature-card h3 {
+  font-family: var(--font-disp); font-size: 1.1rem; font-weight: 600; color: var(--cream);
+}
+.feature-card p {
+  font-family: var(--font-sans); font-size: 0.82rem; font-weight: 300;
+  color: var(--silver); line-height: 1.65;
+}
+.feature-stat {
+  font-family: var(--font-mono); font-size: 0.65rem; color: var(--gold);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-top: auto; padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── CTA ── */
+.cta-section {
+  position: relative; z-index: 1;
+  padding: clamp(3rem,6vh,5rem) clamp(1.5rem, 6vw, 3rem) clamp(4rem,8vh,6rem);
+}
+.cta-inner {
+  max-width: 1200px; margin: 0 auto;
+  background: var(--ink2);
+  border: 1px solid var(--border-h);
+  border-radius: 12px;
+  padding: clamp(2.5rem, 5vw, 4rem);
+  display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center;
+  position: relative; overflow: hidden;
+}
+@media (max-width: 680px) { .cta-inner { grid-template-columns: 1fr; } }
+.cta-inner::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 0% 50%, rgba(201,168,76,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 50%, rgba(201,168,76,0.03) 0%, transparent 50%);
+}
+.cta-inner > * { position: relative; z-index: 1; }
+
+.cta-kicker {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 0.7rem;
+}
+.cta-inner h2 {
+  font-family: var(--font-disp); font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 700; letter-spacing: -0.01em; line-height: 1.1;
+  margin-bottom: 0.8rem;
+}
+.cta-inner h2 em { font-style: italic; color: var(--gold); }
+.cta-inner p {
+  font-family: var(--font-sans); font-size: 0.9rem; font-weight: 300;
+  color: var(--silver); line-height: 1.7; max-width: 440px;
+  margin-bottom: 1.5rem;
+}
+.cta-aside {
+  display: flex; flex-direction: column; gap: 12px; min-width: 180px;
+}
+.cta-stat {
+  font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-left: 2px solid var(--border-h); padding-left: 12px;
+}
+.cta-stat strong {
+  display: block; font-size: 1.4rem; color: var(--gold);
+  font-weight: 500; letter-spacing: -0.02em; margin-bottom: 2px;
+}
+
+/* ── DIVIDERS ── */
+.div-line {
+  position: relative; z-index: 1;
+  border: none; border-top: 1px solid var(--border); margin: 0;
+}
+
+/* ── SECTION PADDING ── */
+.section-pad {
+  padding: clamp(3rem, 6vh, 5rem) 0;
+}
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 2rem clamp(1.5rem, 6vw, 3rem);
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 1rem;
+}
+footer p { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); }
+footer a { color: var(--gold); text-decoration: none; }
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(.22,.68,0,1.15), transform 0.7s cubic-bezier(.22,.68,0,1.15);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+  .terminal-card { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="amb amb-1"></div>
+<div class="amb amb-2"></div>
+
+<!-- ── TICKER TAPE ── -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-inner" id="ticker"></div>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <div class="nav-sigil">XAU</div>
+      <span class="nav-name">Stellar <span>Gold</span></span>
+    </a>
+    <span class="nav-pill">Stellar Network · 13 Tokens</span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="section" style="padding-bottom:0">
+  <div class="hero">
+    <div class="reveal">
+      <div class="hero-eyebrow">stellargold.vercel.app · Stellar Public Network</div>
+      <h1>
+        Real Commodities.
+        <em>On-Chain.</em>
+      </h1>
+      <p class="hero-sub">Gold, silver, oil, platinum — precious metals and energy markets tokenized and settled in under 5 seconds on the Stellar blockchain. Trade 24/7 with near-zero fees.</p>
+      <div class="hero-actions">
+        <a class="btn-gold" href="https://stellarterm.com/exchange" target="_blank" rel="noopener">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          Trade on StellarTerm
+        </a>
+        <a class="btn-ghost" href="#tokens">Browse Tokens ↓</a>
+      </div>
+    </div>
+
+    <!-- TERMINAL CARD -->
+    <div class="reveal" style="transition-delay:0.12s">
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <span class="terminal-title">Commodity Terminal</span>
+          <span class="terminal-live">Live</span>
+        </div>
+        <div class="terminal-body" id="terminal-rows"></div>
+        <div class="terminal-footer">
+          <span class="tf-issuer">Issuer: <span>GBHGCY…HQLFXK</span></span>
+          <span class="tf-issuer" style="color:var(--gold);font-size:0.6rem;">Stellar DEX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUSTLINE ALERT ── -->
+<div class="tl-alert" style="padding-top:0; padding-bottom:clamp(2rem,4vh,3rem)">
+  <div class="tl-alert-inner">
+    <span class="tl-alert-icon">◆</span>
+    <span class="tl-alert-text">
+      <strong>All 13 tokens currently have 0 trustlines — become an early holder.</strong>
+      On Stellar, a trustline authorises your wallet to hold an asset. It locks a refundable 0.5 XLM base reserve.
+      Click <strong>+ Trustline</strong> on any token card, confirm in your Stellar wallet (Lobstr, Solar, or Freighter), then trade on StellarTerm.
+    </span>
+  </div>
+</div>
+
+<!-- ── TOKENS ── -->
+<section class="section section-pad" id="tokens">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">On-Chain Commodities</div>
+      <h2 class="section-title">13 Tokenized Assets</h2>
+      <p class="section-desc">Precious metals, energy, and industrial commodities — each backed by the Stellar public ledger and verifiable on Stellar Expert.</p>
+    </div>
+
+    <div class="token-grid reveal" id="token-grid"></div>
+
+    <div class="issuer-block reveal">
+      <span class="issuer-k">Issuer Account</span>
+      <span class="issuer-v">GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK</span>
+    </div>
+  </div>
+</section>
+
+<hr class="div-line" />
+
+<!-- ── HOW TO ── -->
+<section class="section section-pad" id="howto">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Getting Started</div>
+      <h2 class="section-title">Adding a Trustline</h2>
+      <p class="section-desc">A trustline takes 30 seconds. The 0.5 XLM reserve is fully refundable when removed.</p>
+    </div>
+    <div class="howto-grid reveal">
+      <div class="howto-step">
+        <div class="howto-n">01</div>
+        <h3>Get a Stellar Wallet</h3>
+        <p>Download Lobstr or Solar, or install Freighter for your browser. Fund it with at least 2 XLM to cover the base reserve.</p>
+      </div>
+      <div class="howto-step">
+        <div class="howto-n">02</div>
+        <h3>Click + Trustline</h3>
+        <p>Hit the gold <em>+ Trustline</em> button on any token card. StellarTerm opens pre-loaded with that exact asset and issuer.</p>
+      </div>
+      <div class="howto-step">
+        <div class="howto-n">03</div>
+        <h3>Confirm the Operation</h3>
+        <p>Approve the ChangeTrust transaction in your wallet. The 0.5 XLM reserve is locked, not spent — returned when you remove the trustline.</p>
+      </div>
+      <div class="howto-step" style="border-right:none">
+        <div class="howto-n">04</div>
+        <h3>Trade on the DEX</h3>
+        <p>Your wallet now holds the slot. Place buy/sell orders on the native Stellar DEX via StellarTerm — no sign-up, no custody.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div-line" />
+
+<!-- ── STELLAR NETWORK ── -->
+<section class="section section-pad" id="stellar">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Infrastructure</div>
+      <h2 class="section-title">Why Stellar?</h2>
+      <p class="section-desc">The Stellar network was designed for exactly this — moving value across borders instantly, at a cost that makes sense for every transaction size.</p>
+    </div>
+    <div class="features-grid reveal">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>5-Second Settlement</h3>
+        <p>The Stellar Consensus Protocol finalizes transactions in 3–5 seconds. No block confirmation waits, no overnight settlement windows — commodity positions open and close in real time.</p>
+        <div class="feature-stat">~5s avg finality</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◈</div>
+        <h3>Near-Zero Fees</h3>
+        <p>Each transaction costs 0.00001 XLM — a fraction of a cent. Trading gold or oil in micro-positions is economically viable for anyone, anywhere in the world.</p>
+        <div class="feature-stat">0.00001 XLM per tx</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◆</div>
+        <h3>Transparent Ledger</h3>
+        <p>Every issuance and transfer is recorded permanently on the public Stellar ledger. Verify any token, balance, or trade history on Stellar Expert — no trust required.</p>
+        <div class="feature-stat">Fully auditable</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⊕</div>
+        <h3>Native DEX</h3>
+        <p>Stellar has a built-in decentralized exchange. All commodity tokens are tradeable peer-to-peer without intermediaries, custodians, or sign-up flows.</p>
+        <div class="feature-stat">Non-custodial · 24/7</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◉</div>
+        <h3>Trustline Security</h3>
+        <p>The trustline model means your wallet only receives assets you've explicitly authorised. No spam tokens can be deposited without your consent.</p>
+        <div class="feature-stat">Self-sovereign control</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">♦</div>
+        <h3>Energy Efficient</h3>
+        <p>Stellar's Federated Byzantine Agreement uses a tiny fraction of the energy consumed by proof-of-work chains — a better foundation for tokenized commodities.</p>
+        <div class="feature-stat">FBA consensus</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div class="cta-section">
+  <div class="cta-inner reveal">
+    <div>
+      <div class="cta-kicker">StellarTerm · Live Market</div>
+      <h2>Be the first to hold<br /><em>tokenized commodities</em>.</h2>
+      <p>All 13 tokens — gold, silver, platinum, oil and more — currently have zero trustlines. Add a trustline and become an early holder on the Stellar network. Trading is live on StellarTerm 24/7.</p>
+      <div class="hero-actions">
+        <a class="btn-gold" href="https://stellarterm.com/exchange" target="_blank" rel="noopener">
+          Open StellarTerm →
+        </a>
+        <a class="btn-ghost" href="https://stellar.expert/explorer/public/account/GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK" target="_blank" rel="noopener">
+          View Issuer
+        </a>
+      </div>
+    </div>
+    <div class="cta-aside">
+      <div class="cta-stat"><strong>13</strong>Commodity Tokens</div>
+      <div class="cta-stat"><strong>&lt;5s</strong>Settlement Time</div>
+      <div class="cta-stat"><strong>24/7</strong>Trading Hours</div>
+      <div class="cta-stat"><strong>0</strong>Sign-up Required</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <p>© 2025 Stellar Gold · <a href="https://stellargold.vercel.app">stellargold.vercel.app</a></p>
+    <p>Tokens on the <a href="https://stellar.org" target="_blank" rel="noopener">Stellar Network</a>. Not financial advice. DYOR.</p>
+  </div>
+</footer>
+
+<script>
+const ISSUER = 'GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK';
+
+const tokens = [
+  { t: 'BRENT',  name: 'Brent Crude Oil',      desc: 'Benchmark crude oil from the North Sea, the global standard for pricing two-thirds of the world\'s oil supply.' },
+  { t: 'NG',     name: 'Natural Gas',           desc: 'Henry Hub natural gas — the primary price benchmark for natural gas futures in North America.' },
+  { t: 'WTI',    name: 'WTI Crude Oil',         desc: 'West Texas Intermediate crude oil, the primary US benchmark for oil prices and a key indicator of energy markets.' },
+  { t: 'XAG',    name: 'Silver',                desc: 'Tokenized silver (XAG) — the ISO 4217 currency code for one troy ounce of fine silver.' },
+  { t: 'XAUt',   name: 'Gold (Troy Oz)',        desc: 'Tokenized gold (XAU) representing one troy ounce of fine gold — the world\'s oldest store of value, now on-chain.' },
+  { t: 'XCU',    name: 'Copper',                desc: 'Tokenized copper — the industrial metal that serves as a leading economic indicator for global growth.' },
+  { t: 'XLMG',   name: 'XLM Gold Index',        desc: 'A Stellar-native gold index token combining XLM exposure with gold price tracking.' },
+  { t: 'XLMS',   name: 'XLM Silver Index',      desc: 'A Stellar-native silver index token combining XLM exposure with silver price tracking.' },
+  { t: 'XNI',    name: 'Nickel',                desc: 'Tokenized nickel — a critical metal for stainless steel and EV battery production, priced at the LME benchmark.' },
+  { t: 'XPB',    name: 'Lead',                  desc: 'Tokenized lead (Pb) — the London Metal Exchange benchmark for one of the world\'s most widely used industrial metals.' },
+  { t: 'XPD',    name: 'Palladium',             desc: 'Tokenized palladium — rarer than platinum, critical for catalytic converters and electronics manufacturing.' },
+  { t: 'XPT',    name: 'Platinum',              desc: 'Tokenized platinum — a precious metal rarer than gold, used in catalytic converters, jewellery, and industry.' },
+  { t: 'XZN',    name: 'Zinc',                  desc: 'Tokenized zinc — an essential industrial metal for galvanization, die casting, and alloy production.' },
+];
+
+const expertBase    = 'https://stellar.expert/explorer/public/asset/';
+const stellarTmBase = 'https://stellarterm.com/exchange/';
+
+// ── TERMINAL ROWS (first 5 most iconic) ──
+const terminalTokens = ['XAUt','XAG','XPT','BRENT','WTI'];
+const mockChanges   = ['+0.42%','+1.18%','-0.33%','+2.05%','-0.88%'];
+const tbody = document.getElementById('terminal-rows');
+terminalTokens.forEach((sym, i) => {
+  const tok = tokens.find(t => t.t === sym);
+  const up = mockChanges[i].startsWith('+');
+  const row = document.createElement('div');
+  row.className = 'commodity-row';
+  row.innerHTML = `
+    <span class="cr-icon">${sym.slice(0,3)}</span>
+    <span class="cr-name">${tok ? tok.name : sym}</span>
+    <span class="cr-change ${up ? 'up' : 'down'}">${mockChanges[i]}</span>
+    <span class="cr-tl"><span class="be-first">be first</span></span>
+  `;
+  tbody.appendChild(row);
+});
+
+// ── TOKEN GRID ──
+const grid = document.getElementById('token-grid');
+tokens.forEach(({ t, name, desc }) => {
+  const expertUrl = `${expertBase}${t}-${ISSUER}`;
+  const trustUrl  = `${stellarTmBase}${t}-${ISSUER}/XLM-native`;
+  const card = document.createElement('div');
+  card.className = 'token-card';
+  card.innerHTML = `
+    <div class="tc-top">
+      <span class="tc-ticker">${t}</span>
+      <div class="tc-badges">
+        <span class="badge-chain">Stellar</span>
+        <span class="badge-new">New</span>
+      </div>
+    </div>
+    <div class="tc-name">${name}</div>
+    <div class="tc-desc">${desc}</div>
+    <div class="tc-tl">
+      <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      0 trustlines — be the first holder
+    </div>
+    <div class="tc-actions">
+      <a class="btn-trust" href="${trustUrl}" target="_blank" rel="noopener">
+        <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Trustline
+      </a>
+      <a class="btn-expert" href="${expertUrl}" target="_blank" rel="noopener">
+        <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Stellar Expert
+      </a>
+    </div>
+  `;
+  // cursor glow tracking
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--gx', `${((e.clientX-r.left)/r.width*100).toFixed(1)}%`);
+    card.style.setProperty('--gy', `${((e.clientY-r.top)/r.height*100).toFixed(1)}%`);
+  });
+  grid.appendChild(card);
+});
+
+// ── TICKER TAPE ──
+const tape = document.getElementById('ticker');
+const tapeData = [...tokens, ...tokens];
+tape.innerHTML = tapeData.map(({ t, name }) =>
+  `<span class="ticker-item"><span class="sym">${t}</span><span class="lbl">${name}</span><span class="new">Stellar</span></span>`
+).join('');
+
+// ── SCROLL REVEAL ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+// Trigger hero immediately
+setTimeout(() => {
+  document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
+}, 80);
+</script>
+</body>
+</html>
 
