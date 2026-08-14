@@ -1,13 +1,17 @@
+VERSION="2.2.0"
+NETWORK_PASSPHRASE = "Public Global Stellar Network ; September 2015"
+
+
 [DOCUMENTATION]
-ORG_NAME="stellarhedgefunds"
+ORG_NAME="Stellar Gold"
 ORG_DBA="From well-behaved to intact and correct nodes. Road to understanding the Stellar Consensus Protocol (SCP)"
 ORG_PHYSICAL_ADDRESS="2556 Classen Blvd, Oklahoma, 73069, United States"
-ORG_TWITTER="stellarhedgefunds"
-ORG_GITHUB="stellarhedgefunds"
-ORG_URL="https://stellar.org"
-ORG_LOGO="https://stellarhedgefunds.pages.dev/images/stellarhedgefunds.jpg"
-ORG_OFFICIAL_EMAIL="info@stellarhedgefunds.pages.dev"
-ORG_SUPPORT_EMAIL="mail@stellarhedgefunds.pages.dev"
+ORG_TWITTER="stellargold"
+ORG_GITHUB="stellargold"
+ORG_URL="https://stellar-gold.vercel.app"
+ORG_LOGO="https://stellar-gold.vercel.app/images/stellargold.png"
+ORG_OFFICIAL_EMAIL="info@stellar-gold.vercel.app"
+ORG_SUPPORT_EMAIL="mail@stellar-gold.vercel.app"
 ORG_PHONE_NUMBER="(405) 701-0715"
 ORG_DESCRIPTION="THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
 
@@ -18,294 +22,174 @@ name="Liza Parisian"
 github="Crypto_Liza"
 keybase="Crypto_Liza"
 twitter="Crypto_Liza"
-email="liza@stellarhedgefunds.pages.dev"
-
+email="liza@stellar-gold.vercel.app"
 
 
 [[CURRENCIES]]
-code="EMC"
-name="Elliott Management Corporation"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/EMC.webp"
+code="XAUt"
+name="Tether Gold"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/XAUt.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
-fixed_number=1000000000
+fixed_number=1000000000000000
 anchor_asset="Hedge Fund"
-conditions="Digital Currency"
 status="live"
+desc="Tether Gold (XAU₮) is a stablecoin that provides ownership on a 1:1 basis of one fine troy ounce of gold on a physical bar of gold that meets the Good Delivery standard of the London Bullion Market Association (LBMA). This technology allows access to a stablecoin that provides ownership of physical gold while avoiding the drawbacks associated with physical gold, such as high storage cost and limited accessibility. Note: XAU₮ tokens can be fractionated up to six decimal places (i.e. in increments as small as 0.000001 troy fine ounce)."
+display_decimals=7
 
 [[CURRENCIES]]
-code="MILLENNIUM"
-name="Millennium Asset Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/MILLENNIUM.webp"
+code="XAG"
+name="SILVER"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/XAG.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
-fixed_number=1000000000
+fixed_number=1000000000000000
 anchor_asset="Hedge Fund"
-conditions="Digital Currency"
 status="live"
+desc="XAG is the trading symbol for silver in the financial markets, particularly in the context of futures and spot trading. The code XAG is derived from the Latin word argentum, which means silver. It is used in various trading platforms, exchanges, and financial instruments to represent the precious metal."
+display_decimals=7
 
 [[CURRENCIES]]
-code="ZIFF"
-name="Och-Ziff Asset Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/ZIFF.webp"
+code="XPD"
+name="PALLDIUM"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/XPD.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
-fixed_number=1000000000
+fixed_number=1000000000000000
 anchor_asset="Hedge Fund"
-conditions="Digital Currency"
 status="live"
+desc="XPD in the context of Forex (foreign exchange) refers to the trading of palladium, which is represented by the symbol XPD. It is one of the precious metals traded in the Forex market, alongside others like gold (XAU) and silver (XAG). Palladium is a rare metal primarily used in automotive catalytic converters, electronics, and jewelry, making its price subject to various economic factors, including industrial demand and supply constraints."
+display_decimals=7
 
 [[CURRENCIES]]
-code="TIGER"
-name="Tiger Global Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/TIGER.webp"
+code="XPT"
+name="PLATINUM"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/XPT.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
-fixed_number=1000000000
+fixed_number=1000000000000000
 anchor_asset="Hedge Fund"
-conditions="Digital Currency"
 status="live"
+desc="In the context of Forex (foreign exchange), XPT refers to the currency code for platinum. It is part of the ISO 4217 standard, which assigns three-letter codes to currencies and precious metals. Platinum is a precious metal that is often traded as a commodity, similar to gold and silver, and its price can be influenced by various factors including supply and demand dynamics, industrial usage, and macroeconomic conditions."
+display_decimals=7
 
 [[CURRENCIES]]
-code="MOORE"
-name="Moore Capital Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/MOORE.webp"
+code="XCU"
+name="COPPER"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/XCU.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
-fixed_number=1000000000
+fixed_number=1000000000000000
 anchor_asset="Hedge Fund"
-conditions="Digital Currency"
 status="live"
+desc="XCU is not a commonly used term in Forex trading or foreign exchange markets. However, it can refer to a specific currency pair or market notation that may be used by certain traders or platforms. In the context of Forex, traders usually refer to currency pairs (like EUR/USD, GBP/JPY, etc.), commodities, or other financial instruments."
+display_decimals=7
 
 [[CURRENCIES]]
-code="OAKTREE"
-name="Oaktree Capital Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/OAKTREE.webp"
+code="XZN"
+name="ZINC"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/XZN.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
-fixed_number=1000000000
+fixed_number=1000000000000000
 anchor_asset="Hedge Fund"
-conditions="Digital Currency"
 status="live"
+desc="In the context of Forex (foreign exchange) trading, XZN does not refer to a widely recognized currency pair or trading term. It is possible that XZN might be a typographical error or a misunderstanding of a more common currency code."
+display_decimals=7
 
 [[CURRENCIES]]
-code="BRIDGEWATER"
-name="Bridgewater Associates"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/BRIDGEWATER.webp"
-is_asset_anchored=true
-anchor_asset_type="bond"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="RTEC"
-name="Renaissance Technologies"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/RTEC.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="2SIG"
-name="2 Sigma"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/2SIG.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="CITADEL"
-name="Citadel LLC"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/CITADEL.webp"
+code="XNI"
+name="NICKEL"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/XNI.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
 anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
+fixed_number=1000000000000000
 status="live"
+desc="XNI is not a common term in the Forex market. However, depending on the context, it may refer to different concepts. It can be a specific financial instrument, trading strategy, or even a currency code in certain contexts. Which is launched at a reasonable price for Stellar Lumens"
+display_decimals=7
 
 [[CURRENCIES]]
-code="BRK"
-name="Berkshire Hathaway"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/BRK.webp"
+code="XPB"
+name="LEAD"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/XPB.png"
+is_asset_anchored=true
+anchor_asset_type="realestate"
+anchor_asset="Hedge Fund"
+fixed_number=1000000000000000
+status="live"
+desc="In the context of Forex trading, “XPB” usually refers to the currency pair that represents the price of the British Pound (GBP) against the Euro (EUR). However, it is important to note that “XPB” can also refer to specific trading instruments or products, depending on the broker or trading platform. We trade Stellar as the XPB/XLM currency pair on the Stellar platform."
+display_decimals=7
+
+[[CURRENCIES]]
+code="WTI"
+name="West Texas Intermediate"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/WTI.png"
+is_asset_anchored=true
+anchor_asset_type="realestate"
+anchor_asset="Hedge Fund"
+fixed_number=1000000000000000
+status="live"
+desc="WTI, or West Texas Intermediate, is a grade of crude oil used as a benchmark in oil pricing. In the context of forex trading, WTI is important because the price of oil can have a significant impact on currency values, especially for countries that are major producers or consumers of oil. You can trade oil with Stellar"
+display_decimals=7
+
+[[CURRENCIES]]
+code="NG"
+name="Natural Gas"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/NG.png"
+is_asset_anchored=true
+anchor_asset_type="bond"
+anchor_asset="Hedge Fund"
+fixed_number=1000000000000000
+status="live"
+desc="In the context of forex (foreign exchange) trading, NG typically refers to Natural Gas rather than a currency pair or forex-specific term. Natural gas is a significant commodity in global markets, and its trading can be influenced by various factors, including supply and demand dynamics, weather conditions, geopolitical events, and economic data."
+display_decimals=7
+
+[[CURRENCIES]]
+code="BRENT"
+name="Brent Crude Oil"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/images/BRENT.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
 anchor_asset="Investment Group"
-conditions="Digital Currency"
-fixed_number=1000000000
+fixed_number=1000000000000000
 status="live"
+desc="In the context of forex trading, BRENT usually refers to Brent crude oil, which is one of the main benchmarks for global oil prices. Understanding Brent crude oil is essential for forex traders, especially those who focus on the currencies of oil-exporting and oil-importing countries.Make Money Trading Oil"
+display_decimals=7
 
 [[CURRENCIES]]
-code="UBS"
-name="UBS Switzerland"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/UBS.webp"
+code="XLMG"
+name="Stellar Gold"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/imges/XLMG.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
-anchor_asset="Swiss Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
+anchor_asset="Investment Group"
+fixed_number=1000000000000000
 status="live"
+desc="Join XLMG and XLMS staking program today stake.stellargold.net and receive upto 22% APY staking rewards. Rewards are being paid weekly. More info in telegram group @officialXLMG"
+display_decimals=7
 
 [[CURRENCIES]]
-code="ACM"
-name="Andurand Capital Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/ACM.webp"
-is_asset_anchored=true
-anchor_asset_type="commodity"
-anchor_asset="Oil Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
+code="XLMS"
+name="Stellar Silver"
+issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+image="https://stellar-gold.vercel.app/imges/XLMS.png"
+is_asset_anchored = true
+anchor_asset_type="bond"
+anchor_asset="Investment Group"
+fixed_number=1000000000000000
 status="live"
-
-[[CURRENCIES]]
-code="SAC"
-name="Point72 Capital"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/SAC.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="AQR"
-name="AQR Capital Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/AQR.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-conditions="Digital Currency"
-fixed_number=1000000000
-status="live"
-
-[[CURRENCIES]]
-code="BLACKROCK"
-name="BlackRock Asset Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/BLACKROCK.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="CARLSON"
-name="Carlson Capital Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/CARLSON.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="CAXTON"
-name="Caxton Associates"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/CAXTON.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="SHAW"
-name="DE Shaw & Co."
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/SHAW.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="GAM"
-name="GAM Holdings"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/GAM.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="GOLDMAN"
-name="Goldman Sachs Asset Management"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/GOLDMAN.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Goldman Sachs Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="LAZARD"
-name="Lazard Alternatives"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/LAZARD.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="MAVERICK"
-name="Maverick Capital"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/MAVERICK.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
-
-[[CURRENCIES]]
-code="PSQUARE"
-name="PERSHING SQUARE CAPITAL"
-issuer="GDCKLQ5IQTZMM56BSQO2V4TTYZNC4IVUWXYIKMRR2M7NHBUADZOSZBBC"
-image="https://stellarhedgefunds.pages.dev/images/PSQUARE.webp"
-is_asset_anchored=true
-anchor_asset_type="realestate"
-anchor_asset="Hedge Fund"
-fixed_number=1000000000
-conditions="Digital Currency"
-status="live"
+desc="Stellar Silver is New token created for liquidity pool and to reward XLMG holders with rewards on weekly basis and upto 0.42% weekly APY based on your holdings."
+display_decimals=7
