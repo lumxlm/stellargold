@@ -28,7 +28,7 @@ email="liza@stellar-gold.vercel.app"
 [[CURRENCIES]]
 code="XAUt"
 name="Tether Gold"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/XAUt.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
@@ -41,7 +41,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="XAG"
 name="SILVER"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/XAG.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
@@ -54,7 +54,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="XPD"
 name="PALLDIUM"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/XPD.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
@@ -67,7 +67,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="XPT"
 name="PLATINUM"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/XPT.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
@@ -80,7 +80,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="XCU"
 name="COPPER"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/XCU.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
@@ -93,7 +93,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="XZN"
 name="ZINC"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/XZN.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
@@ -106,7 +106,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="XNI"
 name="NICKEL"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/XNI.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
@@ -119,7 +119,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="XPB"
 name="LEAD"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/XPB.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
@@ -132,7 +132,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="WTI"
 name="West Texas Intermediate"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/WTI.png"
 is_asset_anchored=true
 anchor_asset_type="realestate"
@@ -145,7 +145,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="NG"
 name="Natural Gas"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/NG.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
@@ -158,7 +158,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="BRENT"
 name="Brent Crude Oil"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/images/BRENT.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
@@ -171,7 +171,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="XLMG"
 name="Stellar Gold"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/imges/XLMG.png"
 is_asset_anchored=true
 anchor_asset_type="bond"
@@ -184,7 +184,7 @@ display_decimals=7
 [[CURRENCIES]]
 code="XLMS"
 name="Stellar Silver"
-issuer="GBHGCYHEDOK4HMJRMVHWGA2DCVNVAEKESGCYGSFX5GDSGBIAO4HQLFXK"
+issuer="GBFATKDC27QHR3GI6RJ46KA6MBQTSXQ5MWUSEKJQCDGO7RANYOPQ5MPG"
 image="https://stellar-gold.vercel.app/imges/XLMS.png"
 is_asset_anchored = true
 anchor_asset_type="bond"
